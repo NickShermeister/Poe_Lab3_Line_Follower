@@ -13,19 +13,19 @@ int sensorValueLeft = 0;  // variable to store the value coming from the left se
 int sensorPinRight = A1;  // select the input pin for the right IR sensor
 int sensorValueRight = 0; // variable to store the value coming from the right sensor
 int ByteReceived = -1;    // variable that holds what bytes are received from serial
-int motorSpeed = 24;      //The starting motor speed when cruising directly forward
+int motorSpeed = 32;      //The starting motor speed when cruising directly forward
 int speedLeft = 0;        //The speed of the left wheel
 int speedRight = 0;       //The speed of the right wheel
 int newSpeed = 0;         //The new speed before max is taken into account
-int bound = 350;          //The boundary that constitutes being on a line
+int bound = 36;          //The boundary that constitutes being on a line
 int newBound = 0;        //The new bound before max is taken into account
 
 // Create the motor shield object with the default I2C address
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 
 // Set up motors
-Adafruit_DCMotor *leftMotor = AFMS.getMotor(1);
-Adafruit_DCMotor *rightMotor = AFMS.getMotor(2);
+Adafruit_DCMotor *leftMotor = AFMS.getMotor(2);
+Adafruit_DCMotor *rightMotor = AFMS.getMotor(1);
 
 
 //Setup Function
@@ -160,7 +160,7 @@ void forward() {
     speedLeft = -motorSpeed / 4;
     speedRight = motorSpeed;
     leftMotor->run(BACKWARD);
-    leftMotor->run(FORWARD);
+    rightMotor->run(FORWARD);
   }
   
   //If neither sensor is over the tape, as defined by "bound"
